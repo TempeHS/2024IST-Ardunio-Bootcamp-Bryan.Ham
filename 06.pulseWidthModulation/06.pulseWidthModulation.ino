@@ -16,10 +16,22 @@
     https://github.com/TempeHS/TempeHS_Ardunio_Boilerplate/blob/main/Ardunio_Bootcamp/06.pulseWidthModulation/Bootcamp-PWMOutput.png
 */
 
-void setup() {
+// allocate pin for LED
+unsigned static int myLED = 3;
 
+// setup and debug serial monitor
+void setup() {
+Serial.begin(9600);
+Serial.println("SM Working");
+Serial.println("--------------");
+pinMode(myLED, OUTPUT);
 }
 
+//configure pin out
 void loop() {
 
+for (int i = 0, i <=225; i++) {
+analogWrite(myLED, 225);
+Serial.println(i);
+delay(10);
 }
