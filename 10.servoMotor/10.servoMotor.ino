@@ -20,12 +20,37 @@
 
 //The Servo-h library is built into Ardunio IDE there is no need to side load it like the Ultrasonic Sensor library
 
+#include <Servo.h>
+#include "Ultrasonic.h"
+
+Servo myServo;
+static unsigned int myServoPin = 7;
+static unsigned int myUSPin = 6;
+unsigned long rangeInCM
+
+Ultrasonic myUSsensor(myUSPin);
+
 
 void setup() {
+myServo.attach(myServoPin);
+myServo.write(0);
+delay(100);
+Serial.begin(9600);
+Serial.println("sm working");
 
 }
 
 // The loop function runs over and over again forever
 void loop() {
 
+readUS();
+
+unsigned long rangeInCM = myUSsensor.MeasureInCentimeters();
+Serial.println(rangeInCM);
+}
+
+if (rangeInCM <= 25) {
+ openGate ();
+} else {
+ closeGate();
 }
