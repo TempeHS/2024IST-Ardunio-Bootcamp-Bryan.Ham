@@ -1,5 +1,5 @@
 /*
-  Author: 
+  Author:
   Learning Intention: The students will learn how to connect and control a servo motor.
   Success Criteria:
     1. I understand how to connect the servo motor
@@ -7,50 +7,54 @@
     3. I can map a potentiometer to a servo and control its movement
     4. I understand that a 180deg servo angle of movement is set by a frequency signal sent from the microcontroller
 
-  Student Notes: 
+
+  Student Notes:
+
 
   Documentation:
     https://www.sparkfun.com/servos
     https://github.com/arduino-libraries/Servo <-- We are still using this library
+
 
   Schematic:
     https://www.tinkercad.com/things/lQ9RyYJRoLn?sharecode=MKlN0A7R0WGodkdTRKkPJO7I8PeI5L_GCR7pCclQ0qM
     https://github.com/TempeHS/TempeHS_Ardunio_Boilerplate/blob/main/Ardunio_Bootcamp/10.servoMotor/Bootcamp-servoMotor.png
 */
 
-//The Servo-h library is built into Ardunio IDE there is no need to side load it like the Ultrasonic Sensor library
 
+//The Servo-h library is built into Ardunio IDE there is no need to side load it like the Ultrasonic Sensor library
 #include <Servo.h>
 #include "Ultrasonic.h"
+
 
 Servo myServo;
 static unsigned int myServoPin = 7;
 static unsigned int myUSPin = 6;
-unsigned long rangeInCM
+unsigned long rangeInCM;
 
 Ultrasonic myUSsensor(myUSPin);
 
+bool isGateOpen;
 
 void setup() {
-myServo.attach(myServoPin);
-myServo.write(0);
-delay(100);
-Serial.begin(9600);
-Serial.println("sm working");
-
+   myServo.attach(myServoPin);
+  myServo.write(0);
+  delay(100);
+  Serial.begin(9600);
+  Serial.println("SM Working");
+  Serial.println("---------------------");  
 }
+
 
 // The loop function runs over and over again forever
 void loop() {
 
-readUS();
+   
+   if (readUS() <= 25) {
+    openGate ();
+   } else if (readUS() > 25 ){
+    closeGate();
+   }
 
-unsigned long rangeInCM = myUSsensor.MeasureInCentimeters();
-Serial.println(rangeInCM);
-}
 
-if (rangeInCM <= 25) {
- openGate ();
-} else {
- closeGate();
 }
